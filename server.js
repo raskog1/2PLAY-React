@@ -1,6 +1,7 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schemas");
+const { authMiddleware } = require("./utils/auth");
 // const path = require("path");
 const db = require("./models");
 const sequelize = require("./config/connection");
@@ -9,12 +10,16 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Create new Apollo server and pass in schema data
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: authMiddleware,
 });
 
+// Integrate Apollo server with Express app as middleware
 server.applyMiddleware({ app });
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
