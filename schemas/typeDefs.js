@@ -36,7 +36,9 @@ const typeDefs = gql`
     current: User
     user(id: ID!): User
     playlist(id: ID!): Playlist
-    playlists(pilot_id: Int): [Playlist]
+    playlists(completed: Boolean): [Playlist]
+    pilot_pl(id: ID!, completed: Boolean): [Playlist]
+    copilot_pl(id: ID!, completed: Boolean): [Playlist]
     song(id: ID!): Song
     songs(playlist_id: Int): [Song]
   }
@@ -44,6 +46,15 @@ const typeDefs = gql`
   type Mutation {
     login(username: String!, password: String!): Auth
     addUser(username: String!, password: String!): Auth
+    addPlaylist(name: String!): Playlist
+    completePlaylist(id: ID!): Playlist
+    deletePlaylist(id: ID!): Playlist
+    addSong(
+      artist: String!
+      title: String!
+      trackId: String!
+      playlist_id: Int!
+    ): Song
   }
 `;
 

@@ -31,8 +31,24 @@ const resolvers = {
       return Playlist.findByPk(id);
     },
 
-    playlists: async (parent, { pilot_id }) => {
-      const params = pilot_id ? { pilot_id } : {};
+    playlists: async (parent, args) => {
+      const params = args ? { completed: args.completed } : {};
+      return Playlist.findAll({
+        where: params,
+      });
+    },
+
+    pilot_pl: async (parent, { id, completed }) => {
+      const params = completed ? { pilot_id: id, completed } : { pilot_id: id };
+      return Playlist.findAll({
+        where: params,
+      });
+    },
+
+    copilot_pl: async (parent, { id, completed }) => {
+      const params = completed
+        ? { copilot_id: id, completed }
+        : { copilot_id: id };
       return Playlist.findAll({
         where: params,
       });
@@ -59,6 +75,32 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    addPlaylist: async (parent, { name }, context) => {
+      const playlist = await Playlist.create({
+        name,
+        pilot_id: context.user.id,
+      });
+      return playlist;
+    },
+    completePlaylist: async (parent, { id }) => {
+      const playlist = await Playlist.update(
+        {
+          completed: true,
+        },
+        {
+          where: { id },
+        }
+      );
+      return playlist;
+    },
+    deletePlaylist: async (parent, { id }) => {
+      const playlist = await Playlist.destroy({ where: { id } });
+      return playlist;
+    },
+    addSong: async (parent, args) => {
+      const song = await Song.create(args);
+      return song;
     },
   },
 };
