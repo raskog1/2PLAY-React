@@ -8,39 +8,39 @@ var redirect_uri = process.env.redirect_uri;
 const client_id = process.env.client_id;
 const client_secret = process.env.client_secret;
 
-var generateRandomString = function (length) {
-  var text = "";
-  var possible =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+// var generateRandomString = function (length) {
+//   var text = "";
+//   var possible =
+//     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
+//   for (var i = 0; i < length; i++) {
+//     text += possible.charAt(Math.floor(Math.random() * possible.length));
+//   }
+//   return text;
+// };
 
 var stateKey = "spotify_auth_state";
 
 router.use(cors()).use(cookieParser());
 
-router.get("/login", function (req, res) {
-  var state = generateRandomString(16);
-  res.cookie(stateKey, state);
+// router.get("/login", function (req, res) {
+//   var state = generateRandomString(16);
+//   res.cookie(stateKey, state);
 
-  var scope =
-    "user-read-private user-read-email playlist-modify-private playlist-modify-public";
+//   var scope =
+//     "user-read-private user-read-email playlist-modify-private playlist-modify-public";
 
-  res.redirect(
-    "https://accounts.spotify.com/authorize?" +
-      querystring.stringify({
-        response_type: "code",
-        client_id: client_id,
-        scope: scope,
-        redirect_uri: redirect_uri,
-        state: state,
-      })
-  );
-});
+//   res.redirect(
+//     "https://accounts.spotify.com/authorize?" +
+//       querystring.stringify({
+//         response_type: "code",
+//         client_id: client_id,
+//         scope: scope,
+//         redirect_uri: redirect_uri,
+//         state: state,
+//       })
+//   );
+// });
 
 router.get("/callback", function (req, res) {
   // your application requests refresh and access tokens
