@@ -6,15 +6,6 @@
   font-style: normal;
 } */
 
-.vertical-center {
-  min-height: 80%;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  position: relative;
-}
-
 h1 {
   color: #ffe0ac;
   font-family: "tw_cen_mt_stdbold";
@@ -28,9 +19,9 @@ header {
   height: 100px;
 }
 
-.row {
+/* .row {
   width: 80%;
-}
+} */
 
 .header h1 {
   color: #3f3e66;
@@ -47,10 +38,6 @@ header {
     font-size: 44px;
     margin-bottom: 70px;
   }
-
-  .container {
-    padding-top: 80px;
-  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -61,13 +48,13 @@ header {
 
 /* Scale down the logo/image on small screens */
 @media only screen and (max-width: 375px) {
-  .header a {
+  /* .header a {
     transform: scale(0.8);
   }
 
   .header h1 {
     font-size: 38px;
-  }
+  } */
 
   .text-center h1 {
     font-size: 32px;

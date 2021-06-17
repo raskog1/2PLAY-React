@@ -77,11 +77,14 @@ const resolvers = {
       return { token, user };
     },
     addPlaylist: async (parent, { name }, context) => {
-      const playlist = await Playlist.create({
-        name,
-        pilot_id: context.user.id,
-      });
-      return playlist;
+      if (context.user) {
+        const playlist = await Playlist.create({
+          name,
+          pilot_id: context.user.id,
+        });
+        return playlist;
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
     completePlaylist: async (parent, { id }) => {
       const playlist = await Playlist.update(
